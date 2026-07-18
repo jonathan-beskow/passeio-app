@@ -1,14 +1,14 @@
 {
   "categorias": [
     {
-      "id": "1",
-      "Nome": "Restaurantes",
-      "descricao": "Lugares para alimentação"
+      "nome": "Restaurantes",
+      "descricao": "Lugares para alimentação",
+      "id": "1"
     },
     {
-      "id": "2",
-      "Nome": "Shoppings",
-      "descricao": "Para fazer compras e passear"
+      "nome": "Shoppings",
+      "descricao": "Para fazer compras e passear",
+      "id": "2"
     },
     {
       "nome": "Praias",
@@ -16,5 +16,6 @@
       "id": "u975GzbIPkY"
     }
   ],
+  "lugares": [],
   "$schema": "./node_modules/json-server/schema.json"
 }

@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Categoria } from '../../categorias/categoria';
+import { CategoriaService } from '../../categorias/categoria.service';
+import { LugarService } from '../lugar.service';
 
 @Component({
   selector: 'app-lugar.component',
@@ -8,10 +10,14 @@ import { Categoria } from '../../categorias/categoria';
   templateUrl: './lugar.component.html',
   styleUrl: './lugar.component.css',
 })
-export class LugarComponent {
+export class LugarComponent implements OnInit {
   camposForm: FormGroup;
   categorias: Categoria[] = [];
-  constructor() {
+
+  constructor(
+    private categoriaService: CategoriaService,
+    private service: LugarService
+  ) {
     this.camposForm = new FormGroup({
 
       nome: new FormControl('', Validators.required),
@@ -23,9 +29,29 @@ export class LugarComponent {
     )
   }
 
-  salvar() {
-    console.log('Valores: ', this.camposForm.value);
+  ngOnInit(): void {
+    this.categoriaService.listarTodas().subscribe({
+      next: (listaCategorias) => {
+        console.log(listaCategorias)
+        this.categorias = listaCategorias;
+      }
+    })
   }
+
+  salvar() {
+    console.log("chamou o salvar");
+    this.service.salvar(this.camposForm.value)
+      .subscribe({
+        next: (lugar) => {
+          console.log("Cadastrado com sucesso:!", lugar),
+            this.camposForm.reset();
+        },
+        error: error => console.error(error)
+      })
+      ;
+  }
+
+
 
 
 }
