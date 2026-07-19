@@ -13,10 +13,13 @@
         placeholder="Ex: Praia do Sol, Restaurante Estrela"
         class="w-full p-3 border border-gray-300 rounded shadow-sm focus:ring focus:ring-blue-400"
       />
+      @if (isCampoInvalido('nome')) {
+        <span class="text-red-500 text-sm"> Campo obrigatório </span>
+      }
     </div>
 
     <div class="mb-4">
-      <label for="nome" class="block text-gray-600 font-medium mb-2">Categoria</label>
+      <label for="categoria" class="block text-gray-600 font-medium mb-2">Categoria</label>
       <select
         id="categoria"
         name="categoria"
@@ -37,6 +40,9 @@
           }
         }
       </select>
+      @if (isCampoInvalido('categoria')) {
+        <span class="text-red-500 text-sm"> Campo obrigatório </span>
+      }
     </div>
 
     <div class="mb-4">
@@ -49,6 +55,9 @@
         placeholder="Ex: São Paulo"
         class="w-full p-3 border border-gray-300 rounded shadow-sm focus:ring focus:ring-blue-400"
       />
+      @if (isCampoInvalido('localizacao')) {
+        <span class="text-red-500 text-sm"> Campo obrigatório </span>
+      }
     </div>
 
     <div class="mb-4">
