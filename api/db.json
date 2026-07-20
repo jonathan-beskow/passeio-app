@@ -16,6 +16,23 @@
       "id": "u975GzbIPkY"
     }
   ],
-  "lugares": [],
+  "lugares": [
+    {
+      "nome": "Praia de copacabana",
+      "categoria": "Praias",
+      "localizacao": "Rio de janeiro",
+      "urlFoto": "https://dynamic-media.tacdn.com/media/photo-o/32/2f/2a/b8/caption.jpg?w=700&h=500&s=1",
+      "avaliacao": "5",
+      "id": "iXyglKZI20U"
+    },
+    {
+      "nome": "Bar da esquina",
+      "categoria": "Restaurantes",
+      "localizacao": "São paulo",
+      "urlFoto": "https://upload.wikimedia.org/wikipedia/commons/3/32/Bar_da_Esquina%2C_Belo_Horizonte%2C_Minas_Gerais_-_2023-11-04_-_DSC01498.jpg",
+      "avaliacao": "5",
+      "id": "EMEOHFOEGho"
+    }
+  ],
   "$schema": "./node_modules/json-server/schema.json"
 }

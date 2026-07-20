@@ -1,39 +1,64 @@
 <!-- Filtros -->
-<div class="p-4 bg-white shadow">
-  <div class="flex flex-col md:flex-row items-center justify-center gap-4">
-    <input
-      type="text"
-      placeholder="Pesquisar pelo nome do local"
-      class="w-full border border-gray-300 p-2 rounded shadow-sm focus:ring focus:ring-blue-400"
-    />
-    <select
-      class="w-full border border-gray-300 p-2 rounded shadow-sm focus:ring focus:ring-blue-400"
-    >
-      <option value="">Todas as categorias</option>
+<form #frm="ngForm">
+  <div class="p-4 bg-white shadow">
+    <div class="flex flex-col md:flex-row items-center justify-center gap-4">
+      <input
+        type="text"
+        name="nomeFiltro"
+        [(ngModel)]="nomeFiltro"
+        placeholder="Pesquisar pelo nome do local"
+        class="w-full border border-gray-300 p-2 rounded shadow-sm focus:ring focus:ring-blue-400"
+      />
 
-      @for (cat of categoriasFiltro; track cat.id) {
-        <option [value]="cat.nome">{{ cat.nome }}</option>
-      }
-    </select>
+      <!-- Correção do nome e ngModel para a variável correta (categoriaFiltro) -->
+      <select
+        name="categoriaFiltro"
+        [(ngModel)]="categoriaFiltro"
+        class="w-full border border-gray-300 p-2 rounded shadow-sm focus:ring focus:ring-blue-400"
+      >
+        <option value="">Todas as Categorias</option>
+        
+        <!-- Nova sintaxe @for do Angular -->
+        @for (cat of categoriasFiltro; track cat.nome) {
+          <option [value]="cat.nome">{{ cat.nome }}</option>
+        }
+      </select>
+
+      <button
+        (click)="filtrar()"
+        class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-800"
+      >
+        Pesquisar
+      </button>
+    </div>
   </div>
-</div>
+</form>
 
-<!-- Listagem Lugares -->
-<div class="p-4 grid grid-col-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-  @for (lug of lugares; track lug.id) {
-    <div class="bg-white shadow rounded overflow-x-hidden">
-      <img [src]="lug.urlFoto" class="w-full h-40 object-cover" />
+<!-- Listagem lugares -->
+<div id="lugaresList" class="p-4 grid grid-col-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+  
+  <!-- Nova sintaxe @for do Angular -->
+  @for (lugar of lugares; track lugar.nome) {
+    <div class="bg-white shadow rounded overflow-hidden">
+      <!-- Verifique as dicas da resposta anterior se a imagem continuar não carregando aqui -->
+      <img [src]="lugar.urlFoto" [alt]="lugar.nome" class="w-full h-40 object-cover" />
       <div class="p-4">
-        <h2 class="text-lg font-semibold">{{ lug.nome }}</h2>
+        <h2 class="text-lg font-semibold">{{ lugar.nome }}</h2>
         <p class="text-gray-500">
-          Categoria: <span class="text-blue-600">{{ lug.categoria }}</span>
+          Categoria: <span class="text-blue-600">{{ lugar.categoria }}</span>
         </p>
-        <p class="text-gray-500">Localização: {{ lug.localizacao }}</p>
+        <p class="text-gray-500">Localização: {{ lugar.localizacao }}</p>
         <div class="mt-2 flex items-center">
-          <span class="text-yellow-500"></span>
-          <span class="ml-2 text-gray-600"> {{ lug.avaliacao }}</span>
+          <span class="text-yellow-500" [innerHTML]="getTotalEstrelas(lugar)"></span>
+          <span class="ml-2 text-gray-600"> {{ lugar.avaliacao }} </span>
         </div>
       </div>
     </div>
+  } @empty {
+    <!-- O bloco @empty é uma novidade do Angular moderno. Ele aparece automaticamente se o array 'lugares' estiver vazio -->
+    <div class="col-span-full text-center text-gray-500 py-8">
+      Nenhum lugar encontrado com esses filtros.
+    </div>
   }
+  
 </div>

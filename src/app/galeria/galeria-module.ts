@@ -1,11 +1,12 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 
+import { FormsModule } from '@angular/forms';
 import { GaleriaRoutingModule } from './galeria-routing-module';
-import { Galeria } from './galeria/galeria';
+import { GaleriaComponent } from './galeria/galeria';
 
 @NgModule({
-  declarations: [Galeria],
-  imports: [CommonModule, GaleriaRoutingModule],
+  declarations: [GaleriaComponent],
+  imports: [CommonModule, GaleriaRoutingModule, FormsModule],
 })
 export class GaleriaModule {}

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Lugar } from '../../lugares/lugar';
 import { Categoria } from '../../categorias/categoria';
-import { LugarService } from '../../lugares/lugar.service';
 import { CategoriaService } from '../../categorias/categoria.service';
+import { Lugar } from '../../lugares/lugar';
+import { LugarService } from '../../lugares/lugar.service';
 
 @Component({
   selector: 'app-galeria',
@@ -10,44 +10,34 @@ import { CategoriaService } from '../../categorias/categoria.service';
   templateUrl: './galeria.html',
   styleUrl: './galeria.css',
 })
-export class Galeria implements OnInit {
-
+export class GaleriaComponent implements OnInit {
   lugares: Lugar[] = [];
   categoriasFiltro: Categoria[] = [];
-
+  nomeFiltro: string = '';
+  categoriaFiltro: string = '';
 
   constructor(
     private lugarService: LugarService,
-    private categoriaService: CategoriaService
-  ) { }
-
+    private categoriaService: CategoriaService,
+  ) {}
 
   ngOnInit(): void {
+    this.categoriaService
+      .listarTodas()
+      .subscribe((categorias) => (this.categoriasFiltro = categorias));
 
-    this.populaCategoria();
-    this.populaLugares();
+    this.lugarService
+      .listarTodos()
+      .subscribe((lugaresResposta) => (this.lugares = lugaresResposta));
   }
 
-  populaCategoria() {
-    this.categoriaService.listarTodas().subscribe(
-      {
-        next: categorias => {
-          this.categoriasFiltro = categorias,
-            console.log("Categorias: ", this.categoriasFiltro)
-        }
-      }
-    )
+  getTotalEstrelas(lugar: Lugar): string {
+    return '&#9733;'.repeat(lugar.avaliacao || 0) + '&#9734;'.repeat(5 - (lugar.avaliacao || 0));
   }
 
-  populaLugares() {
-    this.lugarService.listarTodos().subscribe(
-      {
-        next: lugar => {
-          this.lugares = lugar,
-            console.log("Lugares: ", this.lugares)
-        }
-      }
-    )
+  filtrar() {
+    this.lugarService
+      .filtrar(this.nomeFiltro, this.categoriaFiltro)
+      .subscribe((resultado) => (this.lugares = resultado));
   }
-
 }
