@@ -26,7 +26,7 @@ export class LugarService {
     if (nome) {
       params = params.set('nome_like', nome);
     }
-    if (categoria) {
+    if (categoria && categoria !== "-1") {
       params = params.set('categoria', categoria);
     }
 

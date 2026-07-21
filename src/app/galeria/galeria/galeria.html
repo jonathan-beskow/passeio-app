@@ -16,7 +16,7 @@
         [(ngModel)]="categoriaFiltro"
         class="w-full border border-gray-300 p-2 rounded shadow-sm focus:ring focus:ring-blue-400"
       >
-        <option value="">Todas as Categorias</option>
+        <option value="-1">Todas as Categorias</option>
         
         <!-- Nova sintaxe @for do Angular -->
         @for (cat of categoriasFiltro; track cat.nome) {
